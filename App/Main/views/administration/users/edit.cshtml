@@ -1,0 +1,73 @@
+﻿<div id="LoginArea" class="row" ng-controller="userController as vm">
+    <div class="panel panel-default">
+        <div class="panel-heading">Add New User</div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="newUserFrm" action="#" method="POST" novalidate>
+                <fieldset>
+
+                    <div class="form-group">
+                        <div class="col-md-2">
+                            <label fr="UserName">User Name*</label>
+                        </div>
+                        <div class="col-md-10" ng-class="{ 'has-error' : newUserFrm.UserName.$invalid && (!newUserFrm.UserName.$pristine || newUserFrm.UserName.$touched) }">
+                            <input type="text" class="form-control" name="UserName" ng-model="vm.user.userName" placeholder="Enter User Name" readonly >
+                            
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-2">
+                            <label for="Name">Name*</label>
+                        </div>
+                        <div class="col-md-10" ng-class="{ 'has-error' : newUserFrm.Name.$invalid && (!newUserFrm.Name.$pristine || newUserFrm.Name.$touched) }">
+                            <input type="text" class="form-control" name="Name" ng-model="vm.user.name" placeholder="Enter Name" required maxlength="32">
+                            <div class="help-block" ng-messages="newUserFrm.Name.$error" ng-if="newUserFrm.Name.$touched">
+                                <p ng-message="required">Name is required.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-2">
+                            <label for="Surname">Sur Name</label>
+                        </div>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" name="Surname" ng-model="vm.user.surname" placeholder="Enter Sur Name" maxlength="32">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-2">
+                            <label for="EmailAddress">Email Address*</label>
+                        </div>
+                        <div class="col-md-10" ng-class="{ 'has-error' : newUserFrm.EmailAddress.$invalid && (!newUserFrm.EmailAddress.$pristine || newUserFrm.EmailAddress.$touched) }">
+                            <input type="email" class="form-control" name="EmailAddress" ng-model="vm.user.emailAddress" placeholder="Enter Email Address" required>
+                            <div class="help-block" ng-messages="newUserFrm.EmailAddress.$error" ng-if="newUserFrm.EmailAddress.$touched">
+                                <p ng-message="required">Email Address is required.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-class="{ 'has-error' : newUserFrm.role.$invalid && (!newUserFrm.role.$pristine || newUserFrm.role.$touched) }">
+                        <div class="col-md-2">
+                            <label for="role">Role*</label>
+                        </div>
+                        <div class="col-md-10">
+                            <select id="drpRole" class="form-control" name="role" ng-model="vm.selectedRole" ng-options="option.displayName for option in vm.roles track by option.id" required>
+                                <option value="">---Select a Role---</option>
+                            </select>
+                            <div class="help-block" ng-messages="newUserFrm.role.$error" ng-if="newUserFrm.role.$touched">
+                                <p ng-message="required">User Role is required.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-10 col-md-offset-2">
+                            <button type="button" ng-click="vm.updateUser()" id="RegisterButton" class="btn btn-primary"><i class="fa fa-save"></i> Update</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

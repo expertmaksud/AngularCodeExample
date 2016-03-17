@@ -1,0 +1,14 @@
+﻿<div ng-controller="invoiceListController as vm">
+    <div class="panel panel-default">
+        <div class="panel-heading">Invoice List</div>
+        <div class="panel-body">
+           <div class="col-md-2">
+                <button ng-click="vm.details()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Details</button>
+                
+            </div>
+            <div class="col-md-12">
+                <div id="invoiceListGrid" ui-grid="vm.gridOptions" ui-grid-selection class="uigridfull"></div>
+            </div>
+        </div>
+    </div>
+</div>

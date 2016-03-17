@@ -1,0 +1,22 @@
+﻿<div ng-controller="roleController as vm">
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading"><b>All Roles</b></div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" id="btnNewRole" ng-click="vm.addNew()" class="btn btn-primary"><i class="fa fa-plus"></i> Add Role</button>
+                            <button type="button" id="btnEditRole" ng-disabled="vm.disableEdit" ng-click="vm.edit()" class="btn btn-primary"><i class="fa fa-edit"></i> Edit Role</button>
+
+                            <button type="button" id="btnSetPermission" ng-disabled="vm.disableEdit" ng-click="vm.setPermission()" class="btn btn-primary"><i class="fa fa-plus"></i> Set Permisssions</button>
+                        </div>
+                    </div>
+                    <div id="rolesGrid" ui-grid="vm.gridOptions" ui-grid-selection class="uigridfull"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

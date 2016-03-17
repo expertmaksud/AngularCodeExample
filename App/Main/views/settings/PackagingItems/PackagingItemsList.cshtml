@@ -1,0 +1,15 @@
+﻿<div ng-controller="packagingItemsListController as vm">
+    <div class="panel panel-default">
+        <div class="panel-heading">Packaging Item List</div>
+        <div class="panel-body">
+            <div class="col-md-4">
+                <a ng-href="#/PackagingItem/new" class="btn btn-primary" role="button">Add New</a>
+                @*<button ng-click="vm.editSelectedRow()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Edit Selected Row</button>*@
+                <button ng-click="vm.displayPackagingItemDetails()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Display Detail</button>
+            </div>
+            <div class="col-md-12">
+                <div id="packagingItemListGrid" ui-grid="vm.gridOptions" ui-grid-selection class="uigrid"></div>
+            </div>
+        </div>
+    </div>
+</div>

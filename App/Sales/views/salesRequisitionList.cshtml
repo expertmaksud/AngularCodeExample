@@ -1,0 +1,43 @@
+﻿<div ng-controller="salesRequisitionListController as vm">
+    <div class="panel panel-default">
+        <div class="panel-heading">{{vm.heading}}</div>
+        <div class="panel-body">
+
+            <div class="row" ng-if="vm.requisitionList">
+                <div class="col-xs-12">
+                    <a ng-href="#/sales/requisitions/" class="btn btn-primary" role="button">Add New</a>
+                </div>
+                <div class="col-md-12">
+                    <button ng-click="vm.editSelectedRow()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Edit Selected Row</button>
+                    <button ng-click="vm.displayDetails()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Display Detail</button>
+                    <button ng-click="vm.deleteSelectedRow()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Delete</button>
+                </div>
+            </div>
+            <div class="row" ng-if="vm.pending">
+                <div class="col-md-12">
+                    <button ng-click="vm.approveRow()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Approve</button>
+                    @*<button ng-click="vm.editSelectedRow()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Edit Selected Row</button>*@
+                    <button ng-click="vm.displayDetails()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Display Detail</button>
+                    @*<button ng-click="vm.deleteSelectedRow()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Delete</button>*@
+                </div>
+            </div>
+            <div class="row" ng-if="vm.approvedList">
+                <div class="col-md-12">
+                    <button ng-click="vm.editApprodedRow()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Edit Selected Row</button>
+                </div>
+            </div>
+            <div class="row" ng-if="vm.seniorApproveRequired">
+                <div class="col-md-12">
+                    <button ng-click="vm.approveSecondLevelRow()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Approve</button>
+                    @*<button ng-click="vm.detailsApprovedRow()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Display Detail</button>*@
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="salesRequisitionGrid" ui-grid="vm.gridOptions" ui-grid-selection class="uigridfull"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

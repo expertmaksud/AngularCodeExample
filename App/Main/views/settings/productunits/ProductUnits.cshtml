@@ -1,0 +1,31 @@
+﻿<div ng-controller="productUnitController as vm">
+    <div class="panel panel-default">
+        <div class="panel-heading">Add Product Unit</div>
+        <div class="panel-body">
+            <form id="frmNewProductUnit" role="form" name="newProductUnitForm" class="form-inline" novalidate>
+                <fieldset>
+                    <input id="unitId" ng-model="vm.productUnit.id" type="hidden" />
+                    <div class="form-group">
+                        <label for="unitCode">Unit Code</label>
+                        <input id="unitCode" ng-model="vm.productUnit.unitCode" ng-disabled="!vm.disableEdit" class="form-control" placeholder="Enter Product Unit Code Here" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="unitName">Unit Name</label>
+                        <input id="unitName" ng-model="vm.productUnit.unitName" class="form-control" placeholder="Enter Product Unit Name Here" required />
+                    </div>
+                    <button ng-click="vm.saveProductUnit()" ng-disabled="newProductUnitForm.$invalid" type="submit" class="btn btn-primary">Save</button>
+                </fieldset>
+            </form>
+
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">All Product Unit</div>
+        <div class="panel-body">
+
+            <button ng-click="vm.editSelectedRow()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Edit Selected Row</button>
+            <button ng-click="vm.deleteProductUnit()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Delete Selected Row</button>
+            <div id="productUnitGrid" ui-grid="vm.gridOptions" ui-grid-selection class="uigrid"></div>
+        </div>
+    </div>
+</div>

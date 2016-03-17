@@ -1,0 +1,65 @@
+﻿<div ng-controller="ApprovedsalesController as vm">
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">Sales Requisition Details</div>
+            <div class="panel-body">
+                <form id="frmNewSales" role="form" name="frmNewSales" class="" novalidate>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="distributorId">Distributor</label>
+                                <select id="distributorId" class="form-control" ng-model="vm.selectedDistributor" ng-options="option.distributorName for option in vm.distributors track by option.id" disabled>
+                                    <option value="">---Please select---</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="paymentMode">Payment Mode</label>
+                                <select id="paymentMode" class="form-control" ng-model="vm.selectedpaymentMode" disabled>
+                                    <option value="">---Please select---</option>
+                                    <option value=0>Cash</option>
+                                    <option value=1>Credit</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="creditDays">Credit Days</label>
+                                <input id="creditDays" name="creditDays" ng-model="vm.sales.creditDays" class="form-control" disabled />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="creditDays">Credit Limit</label>
+                                <input id="creditDays" name="creditDays" ng-model="vm.sales.creditLimit" class="form-control" disabled />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="remarks">Remarks</label>
+                                <input id="remarks" ng-model="vm.sales.remarks" class="form-control" placeholder="Enter Remarks Here" required disabled />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Requisition Items Details</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="purchaseItemGrid" ui-grid="vm.gridOptions" ui-grid-selection class="uigrid"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-footer">
+            <div class="col-md-12">
+                <button ng-click="vm.approveSale()" class="btn btn-primary">Approve</button>
+            </div>
+        </div>
+    </div>
+</div>

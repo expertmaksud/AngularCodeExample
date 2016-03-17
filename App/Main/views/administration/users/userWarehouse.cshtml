@@ -1,0 +1,28 @@
+﻿<div ng-controller="userWarehouseController as vm">
+    <div class="panel panel-default">
+        <div class="panel-heading">Set Warehouse</div>
+        <div class="panel-body">
+            <form id="userWarehouseForm" role="form" name="userWarehouseForm" class="form-horizontal" novalidate>
+                <div class="form-group">
+                    <input type="hidden"  ng-model="vm.userWarehouse.id"/>
+                    <div class="col-md-4">
+                        <label for="txtUserName">User Name </label>
+                        <input type="text" class="form-control" ng-model="vm.user.name" id="txtUserName" name="txtUserName" readonly />
+                    </div>
+                    <div class="col-md-4" ng-class="{ 'has-error' : userWarehouseForm.sltWareHouse.$invalid && (!userWarehouseForm.sltWareHouse.$pristine || userWarehouseForm.sltWareHouse.$touched) }">
+                        <label for="sltWareHouse">Warehouse* </label>
+                        <select id="sltWareHouse" name="sltWareHouse" class="form-control" ng-model="vm.selectedWareHouse" ng-options="option.warehouseName for option in vm.wareHouses track by option.id" required>
+                            <option value="">Please select</option>
+                        </select>
+                        <div class="help-block" ng-messages="userWarehouseForm.sltWareHouse.$error" ng-if="userWarehouseForm.sltWareHouse.$touched">
+                            <p ng-message="required">Please select a WareHouse.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                     <button type="button" id="btnSave" ng-click="vm.save()" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

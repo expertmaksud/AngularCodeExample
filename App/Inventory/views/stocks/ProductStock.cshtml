@@ -1,0 +1,52 @@
+﻿<div ng-controller="productStockController as vm">
+    <div class="panel panel-default">
+        <div class="panel-heading">Current Product Stock</div>
+        <div class="panel-body">
+            <div class="col-md-12">
+                <form id="newProductStockForm" role="form" name="newProductStockForm" class="form-horizontal" novalidate>
+                    <fieldset>
+                        <input id="purchaseId" ng-model="vm.purchase.id" type="hidden" />
+                        <div class="form-group">
+                            <div class="col-md-4" ng-class="{ 'has-error' : newProductStockForm.drpItem.$invalid && (!newProductStockForm.drpItem.$pristine || newProductStockForm.drpItem.$touched) }">
+                                <label for="drpItem">Product Name </label>
+                                <select id="drpItem" class="form-control" name="drpItem" ng-model="vm.selectedProduct" ng-options="option.fullProductName for option in vm.products track by option.id" required>
+                                    <option value="">Please select</option>
+                                </select>
+                                <div class="help-block" ng-messages="newProductStockForm.drpItem.$error" ng-if="newProductStockForm.drpItem.$touched">
+                                    <p ng-message="required">Please select a Product.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4" ng-class="{ 'has-error' : newProductStockForm.sltWareHouse.$invalid && (!newProductStockForm.sltWareHouse.$pristine || newProductStockForm.sltWareHouse.$touched) }">
+                                <label for="sltWareHouse">Warehouse* </label>
+                                <select id="sltWareHouse" name="sltWareHouse" class="form-control" ng-model="vm.selectedWareHouse" ng-options="option.warehouseName for option in vm.wareHouses track by option.id" required>
+                                    <option value="">Please select</option>
+                                </select>
+                                <div class="help-block" ng-messages="newProductStockForm.sltWareHouse.$error" ng-if="newProductStockForm.sltWareHouse.$touched">
+                                    <p ng-message="required">Please select a WareHouse.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4" ng-class="{ 'has-error' : newProductStockForm.stockType.$invalid && (!newProductStockForm.stockType.$pristine || newProductStockForm.stockType.$touched) }">
+                                <label for="stockType">Stock Type*</label>
+                                <select id="stockType" class="form-control" name="stockType" ng-model="vm.selectedStockType" ng-options="option.name for option in vm.stockTypes track by option.id" required>
+                                    <option value="">Please select</option>
+                                </select>
+                                <div class="help-block" ng-messages="newProductStockForm.stockType.$error" ng-if="newProductStockForm.stockType.$touched">
+                                    <p ng-message="required">Stock Type is required.</p>
+                                </div>
+                            </div>                            
+                        </div>
+                    </fieldset>
+                </form>
+                @*<button ng-click="vm.editSelectedRow()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Confirm Distribution</button>*@
+                <button ng-click="vm.displayProductStock()" class="btn btn-primary" ng-disabled="newProductStockForm.$invalid" style="margin:10px 0 10px 0">Show Stock</button>
+            </div>
+            <div class="col-md-4">
+                <label for="productionQuantity">Current Stock</label>
+                <input id="productionQuantity" style="font-size:20px;color:blue;" ng-model="vm.productStock.currentStock" class="form-control" disabled />
+            </div>
+            <div class="col-md-12">
+                <div id="productStockListGrid" ui-grid="vm.gridOptions" ui-grid-selection class="uigrid"></div>
+            </div>
+        </div>
+    </div>
+</div>

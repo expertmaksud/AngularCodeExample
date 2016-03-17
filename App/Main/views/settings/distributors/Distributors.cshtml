@@ -1,0 +1,105 @@
+﻿<div ng-controller="distributorController as vm">
+    <div class="panel panel-default">
+        <div class="panel-heading">Add Distributor</div>
+        <div class="panel-body">
+            <form id="frmNewDistributor" role="form" name="newDistributorForm" class="form-horizontal" novalidate>
+                <fieldset>
+                    <input id="distributorId" ng-model="vm.distributor.id" type="hidden" />
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label for="zone">Zone</label>
+                            <select id="zone" class="form-control" ng-model="vm.selectedZone" ng-options="option.zoneName for option in vm.zones track by option.id">
+                                <option value="">---Please select---</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="distributorCode">Code*</label>
+                            <input id="distributorCode" name="distributorCode" ng-model="vm.distributor.distributorCode" ng-disabled="!vm.disableEdit" class="form-control" ng-maxlength="10"
+                                   placeholder="Enter Distributor" required unique-code service-name="abp.services.app.distributor" />
+                            <p ng-show="newDistributorForm.distributorCode.$error.maxlength" class="help-inline">Brand Code number should be maximum 10 digit</p>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="distributorName">Name*</label>
+                            <input id="distributorName" ng-model="vm.distributor.distributorName" class="form-control" placeholder="Distributor Name" required />
+                        </div>
+                        <div class="col-md-3">
+                            <label for="creditLimit">CreditL Limit*</label>
+                            <input id="creditLimit" ng-model="vm.distributor.creditLimit" class="form-control" placeholder="Credit Limit" required />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label for="distributorAddress">Address</label>
+                            <input id="distributorAddress" ng-model="vm.distributor.distributorAddress" class="form-control" placeholder="Enter Address Here" />
+                        </div>
+                        <div class="col-md-3">
+                            <label for="distributorCity"> City</label>
+                            <input id="distributorCity" ng-model="vm.distributor.distributorCity" class="form-control" placeholder="Enter  City Here" />
+                        </div>
+                        <div class="col-md-3">
+                            <label for="distributorCountry">Country</label>
+                            <input id="distributorCountry" ng-model="vm.distributor.distributorCountry" class="form-control" placeholder="Enter Country Here" />
+                        </div>
+                        <div class="col-md-3">
+                            <label for="distributorJobTitle"> Job Title</label>
+                            <input id="distributorJobTitle" ng-model="vm.distributor.distributorJobTitle" class="form-control" placeholder="Enter Job Title Here" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label for="distributorMobileNumber">Mobile Number</label>
+                            <input id="distributorMobileNumber" name="distributorMobileNumber" ng-model="vm.distributor.distributorMobileNumber" class="form-control" ng-pattern="/^(\d)+$/"
+                                   placeholder="Enter Mobile Number Here" />
+                            <p ng-show="newDistributorForm.distributorMobileNumber.$error.pattern" class="help-inline">Input only digit here</p>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="distributorContactEmail">Contact Email</label>
+                            <input id="distributorContactEmail" name="input" type="email" ng-model="vm.distributor.distributorContactEmail" class="form-control"
+                                   placeholder="Enter Contact Email Here" />
+                            <p class="error" ng-show="newDistributorForm.input.$error.email">Not valid email!</p>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="distributorHomePhone">Home Phone</label>
+                            <input id="distributorHomePhone" name="distributorHomePhone" ng-model="vm.distributor.distributorHomePhone" class="form-control" ng-pattern="/^(\d)+$/" placeholder="Enter Home Phone Here" />
+                            <p ng-show="newDistributorForm.distributorHomePhone.$error.pattern" class="help-inline">Input only digit here</p>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="distributorFaxNumber">Fax Number</label>
+                            <input id="distributorFaxNumber" name="distributorFaxNumber" ng-model="vm.distributor.distributorFaxNumber" class="form-control" ng-pattern="/^(\d)+$/" placeholder="Enter Fax Number Here" />
+                            <p ng-show="newDistributorForm.distributorFaxNumber.$error.pattern" class="help-inline">Input only digit here</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label for="distributorContactPerson"> Contact Person</label>
+                            <input id="distributorContactPerson" ng-model="vm.distributor.distributorContactPerson" class="form-control" placeholder="Enter Contact Person Here" />
+                        </div>
+                        <div class="col-md-3">
+                            <label for="previousDue">Previous Due</label>
+                            <input id="previousDue" ng-model="vm.distributor.previousDueAmount" class="form-control" ng-disabled="!vm.disableEdit" placeholder="Enter Previous Due Amount Here" />
+                        </div>
+                    </div>
+                    <button ng-click="vm.saveDistributor()" ng-disabled="newDistributorForm.$invalid" type="submit" class="btn btn-primary">Save</button>
+                </fieldset>
+            </form>
+            <p class="help-block" ng-show="newDistributorForm.distributorCode.$error.unique && newDistributorForm.distributorCode.$dirty">DistributorCode is already taken.</p>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">All Distributors</div>
+        <div class="panel-body">
+
+
+            <button ng-click="vm.editSelectedRow()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Edit Selected Row</button>
+            <button ng-click="vm.deleteDistributor()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Delete Selected Row</button>
+
+
+            <div id="distributorGrid" ui-grid="vm.gridOptions" ui-grid-selection class="uigrid"></div>
+        </div>
+    </div>
+</div>
+

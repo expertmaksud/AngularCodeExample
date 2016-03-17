@@ -1,0 +1,21 @@
+﻿<div ng-controller="roleController as vm">
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Add New Role</div>
+        <div class="panel-body">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <form name="frmRolePermission" class="form-horizontal">
+                        @*<div class="form-group" ng-repeat="role in vm.roles track by $index">*@
+                        <label>{{vm.role.displayName}}</label>
+                        <div class="form-control" ng-repeat="permission in vm.role.permissions track by $index">
+                            <label ng-class="permission.name.indexOf('.')!= -1 ? 'margin-left':'' "> <input type="checkbox" ng-model="vm.role.permissions[$index].isGranted" name="{{permission.name}}" ng-checked="{{permission.isGranted}}" value="{{permission.isGranted}}"> {{permission.name}}</label>
+                            @*</div>*@
+                        </div>
+                    </form>
+                </div>
+                <button type="button" ng-click="vm.savePermissions()" class="btn btn-primary"><i class="fa fa-sign-in"></i> Save</button>
+            </div>
+        </div>
+    </div>
+</div>

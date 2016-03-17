@@ -1,0 +1,69 @@
+﻿<div ng-controller="employeeController as vm">
+    <div class="panel panel-default">
+        <div class="panel-heading">Add Employee</div>
+        <div class="panel-body">
+            <form id="frmNewEmployee" role="form" name="newEmployeeForm" class="form-horizontal" novalidate>
+                <input id="employeeId" ng-model="vm.employee.id" type="hidden" />
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label for="employeeFullName">Full Name*</label>
+                        <input id="employeeFullName" name="employeeFullName" ng-model="vm.employee.fullName" class="form-control" placeholder="Enter Employee Full Name" required />
+                    </div>
+                    <div class="col-md-3">
+                        <label for="fathersName">Father's Name</label>
+                        <input id="fathersName" ng-model="vm.employee.fathersName" class="form-control" placeholder="Enter Father's Name" />
+                    </div>
+                    <div class="col-md-3">
+                        <label for="fathersName">Mother's Name</label>
+                        <input id="mothersName" ng-model="vm.employee.mothersName" class="form-control" placeholder="Enter Mother's Name" />
+                    </div>
+                    <div class="col-md-3">
+                        <label for="permanentAddress">Permanent Address</label>
+                        <input id="permanentAddress" ng-model="vm.employee.permanentAddress" class="form-control" placeholder="Enter Permanent Address Here" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label for="presentAddress">Present Address</label>
+                        <input id="presentAddress" name="presentAddress" ng-model="vm.employee.presentAddress" class="form-control" placeholder="Enter Employee Present Address"/>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="nationalId">National ID</label>
+                        <input id="nationalId" ng-model="vm.employee.nationalId" class="form-control" placeholder="Enter National ID" />
+                    </div>
+                    <div class="col-md-3">
+                        <label for="companyId">Company ID</label>
+                        <input id="companyId" ng-model="vm.employee.companyId" class="form-control" placeholder="Enter Company ID" />
+                    </div>
+                    <div class="col-md-3">
+                        <label for="contactNumber">Contact Number</label>
+                        <input id="contactNumber" ng-model="vm.employee.contactNumber" class="form-control" placeholder="Enter Contact Number Here" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label for="department">Department</label>
+                        <input id="department" name="department" ng-model="vm.employee.department" class="form-control" placeholder="Enter Department Name" />
+                    </div>
+                    <div class="col-md-3">
+                        <label for="designation">Designation</label>
+                        <input id="designation" ng-model="vm.employee.designation" class="form-control" placeholder="Enter Designation Name" />
+                    </div>                    
+                </div>
+                <button ng-click="vm.saveEmployee()" ng-disabled="newEmployeeForm.$invalid" type="submit" class="btn btn-primary">Save</button>
+            </form>            
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">All Employees</div>
+        <div class="panel-body">
+            <button ng-click="vm.editSelectedRow()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Edit Selected Row</button>
+            <button ng-click="vm.deleteEmployee()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Delete Selected Row</button>
+            <div id="employeeGrid" ui-grid="vm.gridOptions" ui-grid-selection class="uigrid"></div>
+        </div>
+    </div>
+</div>

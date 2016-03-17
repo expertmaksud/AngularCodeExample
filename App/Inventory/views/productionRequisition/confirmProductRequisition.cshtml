@@ -1,0 +1,74 @@
+﻿<div ng-controller="confirmProductRequisitionController as vm">
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">Confirm Product Transmit</div>
+            <div class="panel-body">
+                <form id="frmConfirmProductRequisition" role="form" name="confirmProductRequisitionForm" class="form-horizontal" novalidate>
+                    <fieldset>
+                        <input id="confirmProductRequisition" ng-model="vm.confirmProductRequisition.id" type="hidden" />
+                        <div class="form-group ">
+                            <div class="col-md-2 " ng-class="{ 'has-error' : confirmProductRequisitionForm.sltWareHouse.$invalid && !confirmProductRequisitionForm.sltWareHouse.$pristine }">
+                                <label for="sltWareHouse">Warehouse </label>
+                                <select id="sltWareHouse" class="form-control" name="sltWareHouse" ng-change="vm.getFinishProductDetailsById()" ng-model="vm.selectedWareHouse" ng-options="option.warehouseName for option in vm.wareHouses track by option.id" readonly>
+                                    <option value="">---Please select---</option>
+                                </select>
+                                <div class="help-block" ng-messages="confirmProductRequisitionForm.sltWareHouse.$error" ng-if="confirmProductRequisitionForm.sltWareHouse.$touched">
+                                    <p ng-message="required">Please select a WareHouse.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="stockType">Stock Type</label>
+                                <select id="stockType" class="form-control" name="stockType" ng-model="vm.selectedStockType" ng-change="vm.getFinishProductDetailsById()" ng-options="option.binName for option in vm.stockTypes track by option.id" readonly>
+                                    <option value="">Please select</option>
+                                </select>
+
+                            </div>
+                            <div class="col-md-3 " ng-class="{ 'has-error' : confirmProductRequisitionForm.purchaseType.$invalid && !confirmProductRequisitionForm.purchaseType.$pristine }">
+                                <label for="finishProductName">Finish Product</label>
+                                <select id="finishProductName" class="form-control" name="finishProductName" ng-change="vm.getFinishProductDetailsById()" ng-model="vm.selectedFinishProduct" ng-options="option.fullProductName for option in vm.finishProducts track by option.id" readonly>
+                                    <option value="">---Please select---</option>
+                                </select>
+                                <div class="help-block" ng-messages="confirmProductRequisitionForm.finishProductName.$error" ng-if="confirmProductRequisitionForm.finishProductName.$touched">
+                                    <p ng-message="required">You have to Select Finish Product!</p>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="productionQuantity">Production Quantity</label>
+                                <input id="productionQuantity" ng-model="vm.confirmProductRequisition.finishProductQuantity" ng-change="vm.updateRawMaterialQuantity()" class="form-control" type="number" min="1" placeholder="Enter Finish Product Quantity Here" required />
+                            </div>
+                            <div class="col-md-3">
+                                <label for="remarks">Remarks</label>
+                                <input id="remarks" ng-model="vm.confirmProductRequisition.remarks" class="form-control" placeholder="Enter Remarks Here" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="col-md-2">
+                                <label for="multiplier">Multiplier</label>
+                                <input id="multiplier" ng-model="vm.finishProduct.multiplier" class="form-control" placeholder="Enter Multiplier Here" readonly />
+                            </div>
+                            <div class="col-md-2">
+                                <label for="packSize">Pack Size</label>
+                                <input id="packSize" ng-model="vm.finishProduct.packSize" class="form-control" placeholder="Enter Pack Size Here" readonly />
+                            </div>
+
+                        </div>
+                    </fieldset>
+                </form>
+
+            </div>
+        </div>
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Required Raw Material for Finish Product</div>
+            <div class="panel-body">
+                <div id="formulaItemGrid" ui-grid="vm.gridOptions" ui-grid-selection class="uigrid"></div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <button ng-click="vm.newConfirmProductRequisition()" ng-disabled="confirmProductRequisitionForm.$invalid" type="submit" class="btn btn-primary">Confirm Transmit</button>
+        </div>
+
+    </div>
+</div>

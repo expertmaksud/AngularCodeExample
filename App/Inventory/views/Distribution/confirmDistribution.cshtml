@@ -1,0 +1,57 @@
+﻿<div ng-controller="confirmDistributionController as vm">
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">Confirm Product Distribution</div>
+            <div class="panel-body">
+                <form id="frmConfirmProductDistribution" role="form" name="confirmProductDistributionForm" class="form-horizontal" novalidate>
+                    <fieldset>
+                        <input id="confirmProductRequisition" ng-model="vm.confirmProductDistribution.id" type="hidden" />
+                        <div class="form-group ">
+                            <div class="col-md-3 " ng-class="{ 'has-error' : confirmProductDistributionForm.sltWareHouse.$invalid && !confirmProductDistributionForm.sltWareHouse.$pristine }">
+                                <label for="sltWareHouse">Warehouse </label>
+                                <select id="sltWareHouse" class="form-control" name="sltWareHouse"  ng-model="vm.selectedWareHouse" ng-options="option.warehouseName for option in vm.wareHouses track by option.id" disabled="disabled">
+                                    <option value="">---Please select---</option>
+                                </select>
+                                <div class="help-block" ng-messages="confirmProductDistributionForm.sltWareHouse.$error" ng-if="confirmProductDistributionForm.sltWareHouse.$touched">
+                                    <p ng-message="required">Please Select a WareHouse.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="driverName">Driver Name</label>
+                                <input id="driverName" ng-model="vm.confirmProductDistribution.driverName" class="form-control" placeholder="Enter Driver Name Here" required />
+                            </div>
+                            <div class="col-md-3">
+                                <label for="driverContactAddress">Driver Contact Address</label>
+                                <input id="driverContactAddress" ng-model="vm.confirmProductDistribution.driverContactAddress" class="form-control" placeholder="Enter Driver Contact Address Here" required />
+                            </div>
+                            <div class="col-md-3">
+                                <label for="driverContactPhone">Driver Contact Phone</label>
+                                <input id="driverContactPhone" ng-model="vm.confirmProductDistribution.driverContactPhone" class="form-control" placeholder="Enter Driver Contact Phone Here" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label for="transportCompanyName">Transport Company Name</label>
+                                <input id="transportCompanyName" ng-model="vm.confirmProductDistribution.transportCompanyName" class="form-control" placeholder="Enter Transport Company Name Here" />
+                            </div>
+                            <div class="col-md-3">
+                                <label for="vehicleNumber">Vehicle Number</label>
+                                <input id="vehicleNumber" ng-model="vm.confirmProductDistribution.vehicleNumber" class="form-control" placeholder="Enter Vehicle Number Name Here" />
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Product List For Distribution</div>
+            <div class="panel-body">
+                <div id="distributionItemGrid" ui-grid="vm.gridOptions" ui-grid-selection class="uigrid"></div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <button ng-click="vm.createProductDistribution()" ng-disabled="confirmProductDistributionForm.$invalid" type="submit" class="btn btn-primary">Confirm Distribution</button>
+        </div>
+    </div>
+</div>

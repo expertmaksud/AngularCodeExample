@@ -1,0 +1,87 @@
+﻿<div ng-controller="receivePaymentController as vm">
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">Receive Payment From Distributor</div>
+            <div class="panel-body" style="height:450px">
+                <form id="frmNewReceivePayment" role="form" name="receivePaymentForm" class="form-horizontal" novalidate>
+                    <fieldset>
+                        <input id="receivePayment" ng-model="vm.receivePayment.id" type="hidden" />
+                        <div class="form-group ">
+                            <div class="col-md-3 " ng-class="{ 'has-error' : receivePaymentForm.sltDistributor.$invalid && !(receivePaymentForm.sltDistributor.$pristine || receivePaymentForm.sltDistributor.$touched) }">
+                                <label for="sltDistributor">Distributor </label>
+                                <select id="sltDistributor" class="form-control" name="sltDistributor" ng-model="vm.selectedDistributor" ng-options="option.distributorName for option in vm.distributors track by option.id">
+                                    <option value="">---Please select---</option>
+                                </select>
+                                <div class="help-block" ng-messages="receivePaymentForm.sltDistributor.$error" ng-if="receivePaymentForm.sltDistributor.$touched">
+                                    <p ng-message="required">Please select a Distributor.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="paidAmount">Payment Amount</label>
+                                <input id="paidAmount" ng-model="vm.receivePayment.paidAmount" class="form-control" type="number" min="1" placeholder="Enter Payment Amount Here" required />
+                            </div>
+                            <div class="col-md-3" ng-class="{ 'has-error' : receivePaymentForm.paymentDate.$invalid && (!receivePaymentForm.paymentDate.$pristine || receivePaymentForm.paymentDate.$touched) }">
+                                <label for="paymentDate">Payment Date</label>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="vm.open($event,'payment')"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+
+                                    <input id="paymentDate" name="paymentDate" type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy" ng-model="vm.receivePayment.paymentDate" datepicker-options="vm.dateOptions"  is-open="vm.status.paymentDateOpened" ng-required="true" close-text="Close" readonly />
+
+                                </div>
+                                <div class="help-block" ng-messages="receivePaymentForm.lcDate.$error" ng-if="receivePaymentForm.lcDate.$touched">
+                                    <p ng-message="required">Payment Date is required.</p>
+                                </div>
+                            </div>
+                                <div class="col-md-3 " ng-class="{ 'has-error' : receivePaymentForm.paymentMode.$invalid && (!receivePaymentForm.paymentMode.$pristine || receivePaymentForm.paymentMode.$touched) }">
+                                    <label for="paymentMode">Payment Mode*</label>
+                                    <select id="paymentMode" class="form-control" name="paymentMode" ng-change="vm.changePaymentMode()" ng-model="vm.selectedPaymentMode" ng-options="option.name for option in vm.paymentModes track by option.id" required>
+                                        <option value="">---Please select---</option>
+                                    </select>
+                                    <div class="help-block" ng-messages="receivePaymentForm.paymentMode.$error" ng-if="receivePaymentForm.paymentMode.$touched">
+                                        <p ng-message="required">Payment Mode is required.</p>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="form-group" ng-show="vm.disablePaymentMode">
+                            <div class="col-md-3" ng-class="{ 'has-error' : receivePaymentForm.paymentModeDate.$invalid && (!receivePaymentForm.paymentModeDate.$pristine || receivePaymentForm.paymentModeDate.$touched) }">
+                                <label for="paymentModeDate">{{vm.paymentModeDateLabel}}</label>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="vm.open($event,'paymentMode')"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+
+                                    <input id="paymentModeDate" name="paymentModeDate" type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy" ng-model="vm.receivePayment.paymentModeDate" datepicker-options="vm.dateOptions"  is-open="vm.status.paymentModeDateOpened" ng-required="true" close-text="Close" readonly />
+
+                                </div>
+                                <div class="help-block" ng-messages="receivePaymentForm.lcDate.$error" ng-if="receivePaymentForm.lcDate.$touched">
+                                    <p ng-message="required">Payment Date is required.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="paymentModeNumber">{{vm.paymentModeNumberLabel}}</label>
+                                <input id="paymentModeNumber" ng-model="vm.receivePayment.paymentModeNumber" class="form-control" placeholder="Enter Payment Mode Number Here" />
+                            </div>
+                            <div class="col-md-3">
+                                <label for="bankName">{{vm.bankNameLabel}}</label>
+                                <input id="bankName" ng-model="vm.receivePayment.bankName" class="form-control" placeholder="Enter Bank Name Here" />
+                            </div>
+                            <div class="col-md-3">
+                                <label for="bankBranch">{{vm.bankBranchLabel}}</label>
+                                <input id="bankBranch" ng-model="vm.receivePayment.bankBranch" class="form-control" placeholder="Enter Bank Branch Here" />
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+
+            </div>
+        </div>
+
+
+        <div class="panel-footer">
+            <button ng-click="vm.newReceivePayment()" ng-disabled="receivePaymentForm.$invalid" type="submit" class="btn btn-primary">Save</button>
+        </div>
+
+    </div>
+</div>

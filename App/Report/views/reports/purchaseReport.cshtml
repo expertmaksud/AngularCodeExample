@@ -1,0 +1,72 @@
+﻿<div ng-controller="purchaseReportController as vm">
+    <div class="panel panel-default">
+        <div class="panel-heading">Search Box</div>
+        <div class="panel-body" style="overflow:auto">
+            <form id="frmNewPurchase" role="form" name="newPurchaseForm" class="form-horizontal" novalidate>
+                <fieldset>
+
+                    <input id="purchaseId" ng-model="vm.purchase.id" type="hidden" />
+                    <div class="form-group">
+                        <div class="col-md-3 ">
+                            <label for="purchaseType">Purchase Type</label>
+                            <select id="purchaseType" class="form-control" name="purchaseType" ng-model="vm.selectedPurchaseType" ng-options="option.name for option in vm.purchaseTypes track by option.id">
+                                <option value="">All</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <label for="lcDate">LC Date</label>
+                            <input date-range-picker name="lcDate" class="form-control date-picker" type="text" ng-model="vm.lcDateRange" options="vm.dateRangeOption" />
+
+                        </div>
+                        <div class="col-md-3">
+                            <label for="lcNumber">LC Number</label>
+                            <input id="lcNumber" name="lcNumber" ng-model="vm.lcNumber" class="form-control" placeholder="Enter LC Number Here"  required />
+                        </div>
+                        <div class="col-md-3 ">
+                            <label for="vendor">Vendor</label>
+                            <select id="vendor" class="form-control" name="drpVendor" ng-model="vm.selectedVendor" ng-options="option.vendorName for option in vm.vendors track by option.id">
+                                <option value="">All</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label for="poNumber">PO Number</label>
+                            <input id="poNumber" name="poNumber" ng-model="vm.poNumber" class="form-control" placeholder="Enter PO Number Here" ng-required="true" />
+                        </div>
+                        <div class="col-md-3">
+                            <label for="poDate">PO Date</label>
+                            <input date-range-picker name="poDate" class="form-control date-picker" type="text" ng-model="vm.poDateRange" options="vm.dateRangeOption" />
+                        </div>
+                        <div class="col-md-3 ">
+                            <label for="receiveStatus">Receive Status</label>
+                            <select id="receiveStatus" class="form-control" name="receiveStatus" ng-model="vm.selectedReceiveStatus">
+                                <option value="" selected>All</option>
+                                <option value="0">Open</option>
+                                <option value="1">Complete</option>
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            <div class="form-group">
+                <div class="md-col-6">
+                    <input type="button" class="btn btn-primary" ng-click="vm.openReport()" value="Search" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    @*<p><a href="http://localhost/ReportServer/Pages/ReportViewer.aspx?%2fReport1&rs:Command=Render">Purchase Report</a></p>*@
+
+
+    <form class="form-horizontal" style="height: 100%;">
+        <div style="height:100%; background-color: transparent;">
+            <iframe src="{{vm.iFrameURL | trustAsResourceUrl }}" style="width:100%;height:600px"></iframe>
+        </div>
+    </form>
+</div>
+
+

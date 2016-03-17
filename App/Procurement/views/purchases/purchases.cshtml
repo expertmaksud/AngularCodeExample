@@ -1,0 +1,210 @@
+﻿<div ng-controller="purchaseController as vm">
+    <div class="panel-group">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Create New Purchaes (LC/PO)</div>
+            <div class="panel-body" style="overflow:auto">
+                <form id="frmNewPurchase" role="form" name="newPurchaseForm" class="form-horizontal" novalidate>
+                    <fieldset>
+
+                        <input id="purchaseId" ng-model="vm.purchase.id" type="hidden" />
+                        <div class="form-group">
+                            <div class="col-md-3 " ng-class="{ 'has-error' : newPurchaseForm.purchaseType.$invalid && (!newPurchaseForm.purchaseType.$pristine || newPurchaseForm.purchaseType.$touched) }">
+                                <label for="purchaseType">Purchase Type*</label>
+                                <select id="purchaseType" class="form-control" name="purchaseType" ng-model="vm.selectedPurchaseType" ng-options="option.name for option in vm.purchaseTypes track by option.id" required>
+                                    <option value="">---Please select---</option>
+                                </select>
+                                <div class="help-block" ng-messages="newPurchaseForm.purchaseType.$error" ng-if="newPurchaseForm.purchaseType.$touched">
+                                    <p ng-message="required">Purchase Type is required.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 " ng-class="{ 'has-error' : newPurchaseForm.drpVendor.$invalid && (!newPurchaseForm.drpVendor.$pristine || newPurchaseForm.drpVendor.$touched) }">
+                                <label for="vendor">Vendor*</label>
+                                <div class="input-group">
+                                    <select id="vendor" class="form-control" name="drpVendor" ng-model="vm.selectedVendor" ng-options="option.vendorName for option in vm.vendors track by option.id" required>
+                                        <option value="">---Select a vendor---</option>
+                                    </select>
+                                    <span class="input-group-btn">
+                                        <a class="btn btn-primary" ng-click="vm.openVendorModal()"><i class="fa fa-plus-circle"></i></a>
+                                    </span>
+
+                                </div>
+                                <div class="help-block" ng-messages="newPurchaseForm.drpVendor.$error" ng-if="newPurchaseForm.drpVendor.$touched">
+                                    <p ng-message="required">Vendor is required.</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3" ng-class="{ 'has-error' : newPurchaseForm.lcNumber.$invalid && (!newPurchaseForm.lcNumber.$pristine||newPurchaseForm.lcNumber.$touched) }">
+                                <label for="lcNumber">LC Number</label>
+                                <input id="lcNumber" name="lcNumber" ng-model="vm.purchase.lcNumber" class="form-control" placeholder="Enter LC Number Here" required />
+
+                                <div class="help-block" ng-messages="newPurchaseForm.lcNumber.$error" ng-if="newPurchaseForm.lcNumber.$touched">
+                                    <p ng-message="required">LC Number is required.</p>
+                                </div>
+
+                            </div>
+                            <div class="col-md-3" ng-class="{ 'has-error' : newPurchaseForm.lcDate.$invalid && (!newPurchaseForm.lcDate.$pristine || newPurchaseForm.lcDate.$touched) }">
+                                <label for="lcDate">LC Date</label>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="vm.open($event,'lc')"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+
+                                    <input id="lcDate" name="lcDate" type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy" ng-model="vm.purchase.lcDate" is-open="vm.status.lcOpened" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" readonly />
+
+                                </div>
+                                <div class="help-block" ng-messages="newPurchaseForm.lcDate.$error" ng-if="newPurchaseForm.lcDate.$touched">
+                                    <p ng-message="required">LC Date is required.</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+
+
+                            <div class="col-md-3" ng-class="{ 'has-error' : newPurchaseForm.poNumber.$invalid && (!newPurchaseForm.poNumber.$pristine || newPurchaseForm.poNumber.$touched) }">
+                                <label for="poNumber">PO Number</label>
+                                <input id="poNumber" name="poNumber" ng-model="vm.purchase.poNumber" class="form-control" placeholder="Enter PO Number Here" ng-required="true" />
+                                <div class="help-block" ng-messages="newPurchaseForm.poNumber.$error" ng-if="newPurchaseForm.poNumber.$touched">
+                                    <p ng-message="required">PO Number is required.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3" ng-class="{ 'has-error' : newPurchaseForm.poDate.$invalid && (!newPurchaseForm.poDate.$pristine || newPurchaseForm.poDate.$touched) }">
+                                <label for="poDate">PO Date</label>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="vm.open($event,'po')"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+
+                                    <input id="poDate" name="poDate" type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy" ng-model="vm.purchase.poDate" is-open="vm.status.poOpened" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" readonly />
+                                </div>
+                                <div class="help-block" ng-messages="newPurchaseForm.poDate.$error" ng-if="newPurchaseForm.poDate.$touched">
+                                    <p ng-message="required">PO Date is required.</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3" ng-class="{ 'has-error' : newPurchaseForm.etd.$invalid && (!newPurchaseForm.etd.$pristine || newPurchaseForm.etd.$touched) }">
+                                <label for="etd">ETD</label>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="vm.open($event,'etd')"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+
+                                    <input id="etd" name="etd" type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy" ng-model="vm.purchase.etd" is-open="vm.status.etdOpened" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" readonly />
+                                </div>
+                                <div class="help-block" ng-messages="newPurchaseForm.etd.$error" ng-if="newPurchaseForm.etd.$touched">
+                                    <p ng-message="required">ETD is required.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3" ng-class="{ 'has-error' : newPurchaseForm.eta.$invalid && (!newPurchaseForm.eta.$pristine  || newPurchaseForm.eta.$touched) }">
+
+                                <label for="eta">ETA</label>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="vm.open($event,'eta')"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+
+                                    <input id="eta" name="eta" type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy" ng-model="vm.purchase.eta" is-open="vm.status.etaOpened" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" readonly />
+                                </div>
+
+                                <div class="help-block" ng-messages="newPurchaseForm.eta.$error" ng-if="newPurchaseForm.eta.$touched">
+                                    <p ng-message="required">ETA is required.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label for="remarks">Remarks</label>
+                                <input id="remarks" ng-model="vm.purchase.remarks" class="form-control" placeholder="Enter Remarks Here" />
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Add Purchase Products</div>
+            <div class="panel-body">
+                <form id="frmNewPurchaseItem" role="form" name="newPurchaseItemForm" class="form-horizontal" novalidate>
+                    <input id="itemId" ng-model="vm.purchaseItem.id" type="hidden" />
+                    <fieldset>
+                        <div class="form-group">
+                            <div class="col-md-2" ng-class="{ 'has-error' : newPurchaseItemForm.drpProductType.$invalid && (!newPurchaseItemForm.drpProductType.$pristine || newPurchaseItemForm.drpProductType.$touched) }">
+                                <label for="drpProductType">Product Type</label>
+                                <select id="drpProductType" class="form-control" ng-change="vm.loadItems()" name="drpProductType" ng-model="vm.selectedProductType" ng-options="option.name for option in vm.productTypes track by option.id" required>
+                                    <option value="">Please select</option>
+                                </select>
+                                <div class="help-block" ng-messages="newPurchaseItemForm.drpProductType.$error" ng-if="newPurchaseItemForm.drpProductType.$touched">
+                                    <p ng-message="required">Please select Product Type.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-2" ng-class="{ 'has-error' : newPurchaseItemForm.drpItemName.$invalid && (!newPurchaseItemForm.drpItemName.$pristine || newPurchaseItemForm.drpItemName.$touched) }">
+                                <label for="itemName">Item Name</label>
+                                <select id="itemName" class="form-control" name="drpItemName" ng-disabled="!vm.selectedProductType.id" ng-model="vm.selectedItem" ng-options="option.fullProductName for option in vm.selectedItems track by option.id" required>
+                                    <option value="">Please select</option>
+                                </select>
+                                <div class="help-block" ng-messages="newPurchaseItemForm.drpItemName.$error" ng-if="newPurchaseItemForm.drpItemName.$touched">
+                                    <p ng-message="required">Please select an item.</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label for="purchaseQuantity">Quantity</label>
+                                <input id="purchaseQuantity" type="number" min="1" ng-change="vm.setAmount()" ng-model="vm.purchaseItem.purchaseQuantity" class="form-control" placeholder="Enter Quantity Here" required />
+                            </div>
+                            <div class="col-md-2" ng-class="{ 'has-error' : newPurchaseItemForm.drpUnitType.$invalid && (!newPurchaseItemForm.drpUnitType.$pristine || newPurchaseItemForm.drpUnitType.$touched) }">
+                                <label for="unitType">Unit Type</label>
+                                <select id="unitType" class="form-control" name="drpUnitType" ng-model="vm.selectedProductUnit" ng-options="option.unitName for option in vm.productUnits track by option.id" required>
+                                    <option value="">Please select</option>
+                                </select>
+                                <div class="help-block" ng-messages="newPurchaseItemForm.drpUnitType.$error" ng-if="newPurchaseItemForm.drpUnitType.$touched">
+                                    <p ng-message="required">Please select an unit.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="unitPrice">Unit Price(Tk.)</label>
+                                <input id="unitPrice" type="number" min="0" ng-change="vm.setAmount()" ng-model="vm.purchaseItem.unitPrice" class="form-control" placeholder="Enter Unit Price Here" required />
+                            </div>
+
+
+                            <div class="col-md-2">
+                                <label for="amount">Amount(Tk.)</label>
+                                <input id="amount" ng-model="vm.purchaseItem.amount" class="form-control" disabled />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <button ng-click="newPurchaseItemForm.$valid && vm.addToGrid()" type="submit" class="btn btn-primary" style="margin:10px 0 10px 0">Add To Grid</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">Products Details</div>
+                    <div class="panel-boby">
+                        <div class="col-md-6">
+                            <button ng-click="vm.editSelectedRow()" type="submit" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Edit Selected Row</button>
+                            <button ng-click="vm.deleteRowFromGrid()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Delete Selected Row</button>
+                        </div>
+                        <div class="col-md-12">
+                            <div id="purchaseItemGrid" ui-grid="vm.gridOptions" ui-grid-selection class="uigrid"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="panel panel-footer">
+            <div class="col-md-6">
+                <button ng-click="vm.addNewPurchase()" ng-disabled="newPurchaseForm.$invalid" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+
+</div>

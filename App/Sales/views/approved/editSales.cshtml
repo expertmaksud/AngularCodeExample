@@ -1,0 +1,150 @@
+﻿<div ng-controller="salesUpdateController as vm">
+            <fieldset>
+                <legend>Update Sales </legend>
+
+                <form id="frmNewSales" role="form" name="frmNewSales" class="" novalidate>
+                    <input type="hidden" ng-model="vm.sales.id" />
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="distributorId">Distributor</label>
+                                <select id="distributorId" class="form-control" ng-model="vm.selectedDistributor" ng-options="option.distributorName for option in vm.distributors track by option.id" disabled>
+                                    <option value="">---Please select---</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="paymentMode">Payment Mode</label>
+                                <select id="paymentMode" class="form-control" ng-model="vm.selectedpaymentMode" disabled>
+                                    <option value="">---Please select---</option>
+                                    <option value=0>Cash</option>
+                                    <option value=1>Credit</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="creditDays">Credit Days</label>
+                                <input id="creditDays" name="creditDays" ng-model="vm.sales.creditDays" class="form-control"  disabled/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="remarks">Remarks</label>
+                                <input id="remarks" ng-model="vm.sales.remarks" class="form-control" placeholder="Enter Remarks Here" required />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </fieldset>
+        <fieldset>
+            <legend>Add Sales Items</legend>
+            <form id="frmNewSalesItem" role="form" name="frmNewSalesItem" novalidate>
+                <input id="itemId" ng-model="vm.salesItem.id" type="hidden" />
+                <fieldset>
+                    <div class="row">
+                        <div class="col-md-4" ng-class="{ 'has-error' : frmNewSalesItem.drpProductType.$invalid && !frmNewSalesItem.drpProductType.$pristine }">
+                            <div class="form-group">
+                                <label for="drpProductType">Product Type</label>
+                                <select id="drpProductType" ng-change="vm.loadItems()" class="form-control" name="productTypes" ng-model="vm.selectedProductType" ng-options="option.name for option in vm.productTypes track by option.id" required>
+                                    <option value="">---Please select---</option>
+                                </select>
+                                <div class="help-block" ng-messages="frmNewSalesItem.drpProductType.$error" ng-if="frmNewSalesItem.drpProductType.$touched">
+                                    <p ng-message="required">Please select Product Type.</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-4" ng-class="{ 'has-error' : frmNewSalesItem.drpItemName.$invalid && !frmNewSalesItem.drpItemName.$pristine }">
+                            <div class="form-group">
+                                <label for="itemName">Item Name</label>
+                                <select id="itemName" name="itemName" class="form-control" ng-disabled="!vm.selectedProductType.id" ng-model="vm.selectedItem" ng-options="option.fullProductName for option in vm.selectedItems track by option.id" required>
+                                    <option value="">---Please select---</option>
+                                </select>
+                                <div class="help-block" ng-messages="frmNewSalesItem.drpItemName.$error" ng-if="frmNewSalesItem.drpItemName.$touched">
+                                    <p ng-message="required">Please select an item.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4"  ng-class="{ 'has-error' : frmNewSalesItem.drpWarehouser.$invalid && !frmNewSalesItem.drpWarehouser.$pristine }" >
+                            <div class="form-group">
+                                <label for="itemName">Warehouse</label>
+                                <select id="drpWarehouser" class="form-control" name="wareHouse" ng-model="vm.selectedWarehouse" ng-options="option.warehouseName for option in vm.warehouses track by option.id">
+                                    <option value="">---Please select---</option>
+                                </select>
+                                <div class="help-block" ng-messages="frmNewSalesItem.drpWarehouser.$error" ng-if="frmNewSalesItem.drpWarehouser.$touched">
+                                    <p ng-message="required">Please select a warehouse.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="purchaseQuantity">Quantity</label>
+                                <input id="quantity" type="number" min="1" ng-change="vm.setAmount()" ng-model="vm.salesItem.quantity" class="form-control" placeholder="Enter Quantity Here" required />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="unitPrice">Unit Price(Tk.)</label>
+                                <input id="unitPrice" type="number" min="0" ng-change="vm.setAmount()" ng-model="vm.salesItem.unitPrice" class="form-control" placeholder="Enter Unit Price Here" required />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="amount">Amount(Tk.)</label>
+                                <input id="amount" ng-model="vm.salesItem.amount" class="form-control" disabled />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <button ng-click="vm.saveItem()" type="submit"  ng-disabled="frmNewSalesItem.$invalid" class="btn btn-primary" style="margin:10px 0 10px 0">Save Item</button>
+                            <button ng-click="vm.resetItem()" class="btn btn-primary" style="margin:10px 0 10px 0">Reset Item</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </fieldset>
+         <fieldset>
+             <legend>Sales Items Details</legend>
+             <div class="row">
+                 <div class="col-md-12">
+                     <table class="table table-striped table-hover">
+                         <tr>
+                             <th>SL #</th>
+                             <th>Product Type</th>
+                             <th>Product Name</th>
+                             <th>Quantity</th>
+                             <th>Unit Price</th>
+                             <th>Amount</th>
+                             <th>Warehouse</th>
+                             <th>Actions</th>
+                         </tr>
+                         <tr ng-repeat="x in vm.salesItems track by $index">
+                             <td>{{$index+1}}</td>
+                             <td>{{x.productTypeName}}</td>
+                             <td>{{x.fullProductName}}</td>
+                             <td>{{x.quantity}}</td>
+                             <td>{{x.unitPrice}}</td>
+                             <td>{{x.unitPrice*x.quantity}}</td>
+                             <td>{{x.warehouseName}}</td>
+                             <td>
+                                 <i class="fa fa-edit btn btn-primary" ng-click="vm.editSelectedRow($index)"></i>&nbsp;<i class="fa fa-trash btn btn-danger" ng-click="vm.deleteItem($index)"></i>&nbsp;
+                             </td>
+                         </tr>
+                     </table>
+                 </div>
+             </div>
+         </fieldset>
+    <div class="row">
+        <div class="col-md-12">
+            <button ng-click="vm.save()" ng-disabled="frmNewSales.$invalid" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+    <div>&nbsp;<br /><br /></div>
+</div>

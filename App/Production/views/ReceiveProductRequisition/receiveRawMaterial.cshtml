@@ -1,0 +1,50 @@
+﻿<div ng-controller="receiveRawMaterialController as vm">
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">Raw Material Requisition List</div>
+            <input id="purchaseId" ng-model="vm.purchase.id" type="hidden" />
+            <div class="panel-body">
+                <div id="rawMaterialRequisitionListGrid" ui-grid="vm.gridOptions" ui-grid-selection class="uigrid"></div>
+            </div>
+        </div>
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Confirm Raw Material Receive</div>
+            <div class="panel-body">
+                <form id="newReceiveRawMaterialForm" role="form" name="newReceiveRawMaterialForm" class="form-inline" novalidate>
+                    <fieldset>
+                        <input id="purchaseId" ng-model="vm.purchase.id" type="hidden" />
+                        <div class="form-group">
+                            <div class="col-md-5" ng-class="{ 'has-error' : newReceiveRawMaterialForm.drpItem.$invalid && (!newReceiveRawMaterialForm.drpItem.$pristine || newReceiveRawMaterialForm.drpItem.$touched) }">
+                                <label for="drpItem">Product* </label>
+                                <select id="drpItem" ng-change="vm.itemSelectionChange()" class="form-control" name="drpItem" ng-model="vm.slectedRawMaterial" ng-options="option.fullProductName for option in vm.rawMaterialRequisitions track by option.rawMaterialId" required>
+                                    <option value="">---Please select---</option>
+                                </select>
+                                <div class="help-block" ng-messages="newReceiveRawMaterialForm.drpItem.$error" ng-if="newReceiveRawMaterialForm.drpItem.$touched">
+                                    <p ng-message="required">Please select a Product.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-5" ng-class="{ 'has-error' : newReceiveRawMaterialForm.quantity.$invalid && (!newReceiveRawMaterialForm.quantity.$pristine || newReceiveRawMaterialForm.density.$touched) }">
+                                <label for="quantity">Quantity*</label>
+                                <input id="quantity" type="number" min="1" ng-model="vm.rawMaterialRequisition.rawMaterialReceiveQuantity" class="form-control" placeholder="Enter Quantity" required />
+                                <div class="help-block" ng-messages="newReceiveRawMaterialForm.quantity.$error" ng-if="newReceiveRawMaterialForm.quantity.$touched">
+                                    <p ng-message="required">Please provide quantity.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <button ng-click="vm.saveReceiveRawMaterial()"  ng-disabled="newReceiveRawMaterialForm.$invalid" class="btn btn-primary form-control">Confirm Receive</button>
+
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+        </div>
+
+    </div>
+
+
+</div>

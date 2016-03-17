@@ -1,0 +1,11 @@
+﻿<div ng-controller="salesListController as vm">
+    <div class="row">
+        <legend>ApprovedSales Requisition List</legend>
+    </div>
+    <div class="row">
+        <button ng-click="vm.approve()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Approve</button>
+    </div>
+    <div class="row">
+        <div id="salesListGrid" ui-grid="vm.gridOptions" ui-grid-selection class="uigridfull"></div>
+    </div>
+</div>

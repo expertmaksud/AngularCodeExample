@@ -1,0 +1,38 @@
+﻿<div ng-controller="unitConversionController as vm">
+    <div class="panel panel-default">
+        <div class="panel-heading">Add Unit Conversion Formula</div>
+        <div class="panel-body">
+            <form id="frmNewUnitConversion" role="form" name="newUnitConversionForm" class="form-inline" novalidate>
+                <fieldset>
+                    <input id="unitId" ng-model="vm.unitConversion.id" type="hidden" />
+                    <div class="form-group">
+                        <label for="productUnitFrom">Convert Unit From</label>
+                        <select id="productUnitFrom" class="form-control" ng-model="vm.selectedProductUnitFrom" ng-options="option.unitName for option in vm.productUnits track by option.id">
+                            <option value="">---Please select---</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="productUnitTo">Convert Unit To</label>
+                        <select id="productUnitTo" class="form-control" ng-model="vm.selectedProductUnitTo" ng-options="option.unitName for option in vm.productUnits track by option.id">
+                            <option value="">---Please select---</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="unitName">Conversion Value</label>
+                        <input id="unitName" ng-model="vm.unitConversion.conversionValue" class="form-control" placeholder="Enter Conversion Value Here" required />
+                    </div>
+                    <button ng-click="vm.saveUnitConversion()" ng-disabled="newUnitConversionForm.$invalid" type="submit" class="btn btn-primary">Save</button>
+                </fieldset>
+            </form>
+
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">All Unit Conversion Formula</div>
+        <div class="panel-body">
+            <button ng-click="vm.editSelectedRow()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Edit Selected Row</button>
+            @*<button ng-click="vm.deleteUnitConversion()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Delete Selected Row</button>*@
+            <div id="unitConversionGrid" ui-grid="vm.gridOptions" ui-grid-selection class="uigrid"></div>
+        </div>
+    </div>
+</div>

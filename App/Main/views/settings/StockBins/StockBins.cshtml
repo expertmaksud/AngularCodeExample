@@ -1,0 +1,28 @@
+﻿<div ng-controller="stockBinController as vm">
+    <div class="panel panel-default">
+        <div class="panel-heading">Add Stock Bin Type</div>
+        <div class="panel-body">
+            <form id="frmNewStockBin" role="form" name="newStockBinForm" class="form-inline" novalidate>
+                <fieldset>
+
+                    <input id="stockBinId" ng-model="vm.stockBin.id" type="hidden" />
+                    <div class="form-group">
+                        <label for="stockBinName">Bin Name</label>
+                        <input id="stockBinName" ng-model="vm.stockBin.binName" class="form-control" placeholder="Enter Stock Bin Type Name Here" required />
+                    </div>
+                    <button ng-click="vm.saveStockBin()" ng-disabled="newStockBinForm.$invalid" type="submit" class="btn btn-primary">Save</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">All Stock Bin Types</div>
+        <div class="panel-body">
+            <button ng-click="vm.editSelectedRow()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Edit Selected Row</button>
+            <button ng-click="vm.deleteStockBin()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Delete Selected Row</button>
+
+            <div id="stockBinGrid" ui-grid="vm.gridOptions" ui-grid-selection class="uigrid"></div>
+        </div>
+    </div>
+</div>

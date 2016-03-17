@@ -1,0 +1,15 @@
+﻿<div ng-controller="confirmProductRequisitionListController as vm">
+    <div class="panel panel-default">
+        <div class="panel-heading">Pending Product Requisition List</div>
+        <div class="panel-body">
+            <div class="col-md-12">
+                <button ng-click="vm.receiveRawMaterial()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Receive Raw Material</button>
+                <button ng-click="vm.confirmProduction()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Confirm Production</button>
+                @*<button ng-click="vm.displayFinishProductDetails()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Display Detail</button>*@
+            </div>
+            <div class="col-md-12">
+                <div id="confirmProductRequisitionListGrid" ui-grid="vm.gridOptions" ui-grid-selection class="uigridfull"></div>
+            </div>
+        </div>
+    </div>
+</div>

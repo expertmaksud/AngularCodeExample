@@ -1,0 +1,19 @@
+﻿<div ng-controller="userController as vm">
+    <div class="panel panel-default">
+        <div class="panel-heading">{{vm.title}}</div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="button" id="btnNewUser" ng-click="vm.addNew()" class="btn btn-primary"><i class="fa fa-plus"></i> Add User</button>
+                    <button type="button" id="btnEditUser" ng-disabled="vm.disableEdit" ng-click="vm.edit()" class="btn btn-primary"><i class="fa fa-edit"></i> Edit User</button>
+
+                    <button type="button" id="btnSetWarehouse" ng-disabled="vm.disableEdit" ng-click="vm.setWarehouse()" class="btn btn-primary"><i class="fa fa-plus"></i> Set Warehouse</button>
+                </div>
+            </div>
+
+            <div id="usersGrid" ui-grid="vm.gridOptions" ui-grid-selection class="uigridfull"></div>
+
+        </div>
+    </div>
+
+</div>

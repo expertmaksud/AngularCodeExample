@@ -1,0 +1,130 @@
+﻿<div ng-controller="salesRequisitionController as vm">
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">Add Sales Requisition</div>
+            <div class="panel-body">
+                <form id="frmNewSales" role="form" name="frmNewSales" class="" novalidate>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="distributorId">Distributor*</label>
+                                <select id="distributorId" name="drpDistributor" class="form-control" ng-model="vm.selectedDistributor" ng-options="option.distributorName for option in vm.distributors track by option.id" required>
+                                    <option value="">---Please select---</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="paymentMode">Payment Mode*</label>
+                                <select id="paymentMode" class="form-control" ng-model="vm.sales.paymentMode" required>
+                                    <option value="">---Please select---</option>
+                                    <option value=0>Cash</option>
+                                    <option value=1>Credit</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="creditDays">Credit Days*</label>
+                                <input id="creditDays" name="creditDays" ng-model="vm.sales.creditDays" class="form-control" required />
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="remarks">Remarks</label>
+                                <input id="remarks" ng-model="vm.sales.remarks" class="form-control" placeholder="Enter Remarks Here" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">Add Sales Items</div>
+            <div class="panel-body">
+                <form id="frmNewSalesItem" role="form" name="frmNewSalesItem" novalidate>
+                    <input id="itemId" ng-model="vm.salesItem.id" type="hidden" />
+                    <fieldset>
+                        <div class="form-group">
+                            <div class="col-md-2" ng-class="{ 'has-error' : frmNewSalesItem.drpProductType.$invalid && (!frmNewSalesItem.drpProductType.$pristine || frmNewSalesItem.drpProductType.$touched) }">
+                                <label for="drpProductType">Product Type</label>
+                                <select id="drpProductType" ng-change="vm.loadItems()" class="form-control" name="drpProductType" ng-model="vm.selectedProductType" ng-options="option.name for option in vm.productTypes track by option.id" required>
+                                    <option value="">Please select</option>
+                                </select>
+                                <div class="help-block" ng-messages="frmNewSalesItem.drpProductType.$error" ng-if="frmNewSalesItem.drpProductType.$touched">
+                                    <p ng-message="required">Please select Product Type.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-2" ng-if="vm.displayBrand" ng-class="{ 'has-error' : frmNewSalesItem.sltBrandType.$invalid && (!frmNewSalesItem.sltBrandType.$pristine || frmNewSalesItem.sltBrandType.$touched) }">
+                                <label for="brandType">Brand</label>
+                                <select id="brandType" class="form-control" ng-change="vm.loadFinishProduct()" name="sltBrandType" ng-model="vm.selectedBrand" ng-options="option.brandName for option in vm.brands track by option.id" required>
+                                    <option value="">Select Brand</option>
+                                </select>
+                                <div class="help-block" ng-messages="frmNewSalesItem.sltBrandType.$error" ng-if="frmNewSalesItem.sltBrandType.$touched">
+                                    <p ng-message="required">Select Brand Type.</p>
+                                </div>
+                               
+                            </div>
+                            <div class="col-md-2" ng-class="{ 'has-error' : frmNewSalesItem.drpItemName.$invalid && (!frmNewSalesItem.drpItemName.$pristine || frmNewSalesItem.drpItemName.$touched) }">
+                                <label for="drpItemName">Item Name</label>
+                                <select id="drpItemName" name="drpItemName" class="form-control" ng-change="vm.loadPrice()" ng-disabled="!vm.selectedProductType.id" ng-model="vm.selectedItem" ng-options="option.fullProductName for option in vm.selectedItems track by option.id" required>
+                                    <option value="">Please select</option>
+                                </select>
+                                <div class="help-block" ng-messages="frmNewSalesItem.drpItemName.$error" ng-if="frmNewSalesItem.drpItemName.$touched">
+                                    <p ng-message="required">Please select an item.</p>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-2">
+
+                                <label for="purchaseQuantity">Quantity</label>
+                                <input id="quantity" type="number" min="1" ng-change="vm.setAmount()" ng-model="vm.salesItem.quantity" class="form-control" placeholder="Enter Quantity Here" required />
+
+                            </div>
+                            <div class="col-md-2">
+
+                                <label for="unitPrice">Unit Price(Tk.)</label>
+                                <input id="unitPrice" ng-change="vm.setAmount()" ng-model="vm.salesItem.unitPrice" class="form-control" placeholder="Enter Unit Price Here" readonly required />
+
+                            </div>
+                            <div class="col-md-2">
+
+                                <label for="amount">Amount(Tk.)</label>
+                                <input id="amount" ng-model="vm.salesItem.amount" class="form-control" disabled />
+
+                            </div>
+                        </div>
+                        
+                    </fieldset>
+                    <div class="form-group">
+                            <div class="col-md-3">
+                                <button ng-click="frmNewSalesItem.$valid && vm.addToGrid()" type="submit" class="btn btn-primary" style="margin:10px 0 10px 0">Add To Grid</button>
+                            </div>
+                        </div>
+                </form>
+            </div>
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Requisition Details</div>
+                    <div class="panel-body">
+                        <div class="col-md-6">
+                            <button ng-click="vm.editSelectedRow()" type="submit" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Edit Selected Row</button>
+                            <button ng-click="vm.deleteRawMaterial()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Delete Selected Row</button>
+                        </div>
+                        <div class="col-md-12">
+                            <div id="purchaseItemGrid" ui-grid="vm.gridOptions" ui-grid-selection class="uigrid"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="panel panel-footer">
+            <div class="col-md-12">
+                <button ng-click="vm.addNewSales()" ng-disabled="frmNewSales.$invalid" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

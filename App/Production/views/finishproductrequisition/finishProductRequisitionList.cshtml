@@ -1,0 +1,16 @@
+﻿<div ng-controller="finishProductRequisitionListController as vm">
+    <div class="row">
+        <a ng-href="#/product/requisition" class="btn btn-primary" role="button">Add New Requisition</a>
+
+    </div>
+    <div class="row">
+        <legend>Finish Product Requisition List</legend>
+    </div>
+    <div class="row">
+        @*<button ng-click="vm.editSelectedRow()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Edit Selected Row</button>*@
+        @*<button ng-click="vm.displayFinishProductDetails()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Display Detail</button>*@
+    </div>
+    <div class="row">
+        <div id="finishProductRequisitionListGrid" ui-grid="vm.gridOptions" ui-grid-selection class="uigridfull"></div>
+    </div>
+</div>

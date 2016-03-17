@@ -1,0 +1,123 @@
+﻿<div ng-controller="invoiceController as vm">
+    <div id="divInvoice">
+        <div class="row text-center pad-top-botm ">
+            <div class="col-md-offset-4 col-lg-3 col-md-3 col-sm-6 center-block ">
+                <img class="img-responsive" src="~/App/assets/images/Oriental-Oil-Company-Ltd-24.png" />
+            </div>
+
+        </div>
+        <div class="row text-center contact-info">
+            <hr />
+
+        </div>
+
+        <div class="row pad-top-botm client-info">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <h4>  <strong>Bill To</strong></h4>
+                <strong>  {{vm.invoice.distributorName}}</strong>
+                <br />
+                <b>Address :</b> {{vm.invoice.distributorAddress}} , {{vm.invoice.distributorCity}},
+                <br />
+                {{vm.invoice.distributorCountry}}.
+                <br />
+                <b>Call :</b> {{vm.invoice.distributorMobile}}
+                <br />
+                <b>E-mail :</b> info@clientdomain.com
+            </div>
+            <div class="col-md-offset-3 col-lg-3 col-md3 col-sm-6 pull-right">
+
+                <h4>  <strong>Invoice</strong></h4>
+                <b>{{vm.invoice.invoiceNumber}} </b>
+                <br />
+                Invoice Date :  {{vm.invoice.creationTime | date:'MMM dd, yyyy'}}
+                <br />
+                <b>Payment Status :  {{vm.invoice.isInvoicePaid  === true ? "Paid" : "Not Paid"}} </b>
+                
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>S. No.</th>
+                                <th>Item Description</th>
+                                <th>Pack Size</th>
+                                <th>Multiplier</th>
+                                <th>Quantity</th>
+                                <th>Total Quantity (Liter)</th>
+                                <th>Unit Price (BDT)</th>
+                                <th>Total Price (BDT)</th>
+                                @*<th>Unit</th>*@
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="x in  vm.invoiceDetails track by $index">
+                                <td>{{$index+1}}</td>
+                                <td>{{x.fullProductName}}</td>
+                                <td>{{x.packSize != 0 ? x.packSize : ''}}</td>
+                                <td>{{x.multiplier != 0 ? x.multiplier : ''}}</td>
+                                <td>{{x.quantity}}</td>
+                                <td>{{x.totalQuantity}}</td>
+                                <td>{{x.unitPrice}}</td>
+                                <td>{{x.totalPrice}}</td>
+                                @*<td>{{x.unitName}}</td>*@
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+                @*<hr /><div class="ttl-amts">
+                        <h5>  Total Amount : {{vm.totalPrice}} BDT </h5>
+                    </div>
+                    <hr />
+                        <div class="ttl-amts">
+                            <h5>  Tax : 90 USD ( by 10 % on bill ) </h5>
+                        </div>
+                <hr />*@
+                <div class="pull-right">
+                    <h5> <strong>Bill Amount : {{vm.totalPrice}} BDT</strong> </h5>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <strong> Important: </strong>
+                <ol>
+                    <li>
+                        This is an electronic generated invoice so doesn't require any signature.
+
+                    </li>
+                    <li>
+                        Please read all terms and polices for returns, replacement and other issues.
+
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div class="row text-center client-info">
+            <hr />
+            <strong>Oriental Oil Company Limited</strong>
+            <br />
+            The Alliance Building, 63 Pragati Sarani, Baridhara, Dhaka-1212
+            <br />
+            Phone : (880-2) 8831704, 8831893, 9840194, 9892915 | Fax : (880-2) 9891759
+            <br />
+            Email : Sales@orientaloilbd.com | www.ahlbd.com
+        </div>
+    </div>
+    <div class="row pad-top-botm">
+          <hr />
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          
+            <a href="#" class="btn btn-primary " ng-click="vm.print()">Print Invoice</a>
+            &nbsp;&nbsp;&nbsp;
+            <a href="#" class="btn btn-success" ng-click="vm.createPDF()">Download In Pdf</a>
+
+        </div>
+    </div>
+</div>

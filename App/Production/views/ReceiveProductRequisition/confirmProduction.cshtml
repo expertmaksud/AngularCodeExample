@@ -1,0 +1,50 @@
+﻿<div ng-controller="confirmProductionController as vm">
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Confirm Production of Finish Product</div>
+        <div class="panel-body">
+            <form id="frmNewConfirmProduction" role="form" name="frmNewConfirmProduction" class="form-horizontal" novalidate>
+                <fieldset>
+                    <input id="confirmProductionId" ng-model="vm.confirmProduction.id" type="hidden" />
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label for="fullProductName">Finish Product Full Name</label>
+                            <input id="fullProductName" ng-model="vm.approvedProductionRequisition.fullProductName" class="form-control" readonly />
+                        </div>
+                        <div class="col-md-4">
+                            <label for="approvedProductionQuantity">Approved Finish Product Quantity</label>
+                            <input id="approvedProductionQuantity" ng-model="vm.approvedProductionRequisition.finishProductQuantity" class="form-control" readonly />
+                        </div>
+                        <div class="col-md-4">
+                            <label for="availableProductionQuantity">Available Finish Product Quanity</label>
+                            <input id="availableProductionQuantity" ng-model="vm.approvedProductionRequisition.availableFinishProduct" class="form-control" readonly />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4" ng-class="{ 'has-error' : frmNewConfirmProduction.stockType.$invalid && (!frmNewConfirmProduction.stockType.$pristine || frmNewConfirmProduction.stockType.$touched) }">
+                            <label for="stockType">Stock Type*</label>
+                            <select id="stockType" class="form-control" name="stockType" ng-model="vm.selectedStockType" ng-options="option.binName for option in vm.stockTypes track by option.id" ng-required="true">
+                                <option value="">Please select</option>
+                            </select>
+                            <div class="help-block" ng-messages="frmNewConfirmProduction.stockType.$error" ng-if="frmNewConfirmProduction.stockType.$touched">
+                                <p ng-message="required">Stock Type is required.</p>
+                            </div>
+
+                        </div>
+                        <div class="col-md-4">
+                            <label for="productionQuantity">Confirm Finish Product Quanity</label>
+                            <input id="productionQuantity" ng-model="vm.confirmProduction.finishProductQuantity" class="form-control" type="number" min="1" placeholder="Enter Finish Confirm Production Quantity Here" required />
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Actions</div>
+        <div class="panel-body">
+            <button ng-click="vm.addNewconfirmProduction()" ng-disabled="newConfirmProductionForm.$invalid" type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+</div>

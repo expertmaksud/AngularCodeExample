@@ -1,0 +1,41 @@
+﻿<div ng-controller="roleController as vm">
+    <div class="panel panel-default">
+        <div class="panel-heading">Add New Role</div>
+        <div class="panel-body">
+
+            <form class="form-horizontal" name="newRoleFrm" action="#" method="POST" novalidate>
+                <fieldset>
+
+                    <div class="form-group">
+                        <div class="col-md-2">
+                            <label fr="RoleName">Role Name*</label>
+                        </div>
+                        <div class="col-md-10" ng-class="{ 'has-error' : newRoleFrm.RoleName.$invalid && (!newRoleFrm.RoleName.$pristine || newRoleFrm.RoleName.$touched) }">
+                            <input type="text" class="form-control" name="RoleName" ng-model="vm.role.name" placeholder="Enter Role Name" required maxlength="32">
+                            <div class="help-block" ng-messages="newRoleFrm.RoleName.$error" ng-if="newRoleFrm.RoleName.$touched">
+                                <p ng-message="required">Role Name is required.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-2">
+                            <label for="Name">Display Name*</label>
+                        </div>
+                        <div class="col-md-10" ng-class="{ 'has-error' : newRoleFrm.Name.$invalid && (!newRoleFrm.Name.$pristine || newRoleFrm.Name.$touched) }">
+                            <input type="text" class="form-control" name="Name" ng-model="vm.role.displayName" placeholder="Enter Display Name" required maxlength="64">
+                            <div class="help-block" ng-messages="newRoleFrm.Name.$error" ng-if="newRoleFrm.Name.$touched">
+                                <p ng-message="required">Display Name is required.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-10 col-md-offset-2">
+                            <button type="button" ng-click="vm.saveRole()" ng-disabled="newRoleFrm.$invalid" id="RegisterButton" class="btn btn-primary"><i class="fa fa-sign-in"></i> Save</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

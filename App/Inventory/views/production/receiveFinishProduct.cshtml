@@ -1,0 +1,36 @@
+﻿<div ng-controller="receiveFinishProductController as vm">
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Receive Finish Product</div>
+        <div class="panel-body">
+            <form id="frmNewReceiveFinishProduct" role="form" name="newReceiveFinishProduct" class="form-horizontal" novalidate>
+                <fieldset>
+                    <input id="confirmProductionId" ng-model="vm.confirmProduction.id" type="hidden" />
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label for="fullProductName">Finish Product Full Name</label>
+                            <input id="fullProductName" ng-model="vm.confirmFinishProduct.fullProductName" class="form-control" readonly />
+                        </div>
+                        <div class="col-md-3">
+                            <label for="stockType">Stock Type*</label>
+                            <select id="stockType" class="form-control" name="stockType" ng-model="vm.selectedStockType" ng-options="option.binName for option in vm.stockTypes track by option.id" readonly>
+                                <option value="">Please select</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="approvedProductionQuantity">Finish Product Quantity</label>
+                            <input id="approvedProductionQuantity" ng-model="vm.confirmFinishProduct.finishProductQuantity" class="form-control" readonly />
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Actions</div>
+        <div class="panel-body">
+            <button ng-click="vm.confirmReceiveFinishProduct()" ng-disabled="newReceiveFinishProduct.$invalid" type="submit" class="btn btn-primary">Confirm Receive</button>
+        </div>
+    </div>
+</div>

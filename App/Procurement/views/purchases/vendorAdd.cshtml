@@ -1,0 +1,87 @@
+﻿<form id="frmNewVendor" role="form" name="newVendorForm" novalidate>
+    <div class="modal-header">
+        <h3 class="modal-title">Add Vendor</h3>
+    </div>
+    <div class="modal-body">
+            <input id="vendorId" ng-model="vendor.id" type="hidden" />
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="vendorCode">Code</label>
+                    <input id="vendorCode" name="code" ng-model="vendor.vendorCode" class="form-control" placeholder="Enter Vendor Code Here" required
+                           unique-code service-name="abp.services.app.vendor" />
+
+                </div>
+            </div>
+            <div class="col-md-6">
+            <div class="form-group">
+                <label for="vendorName">Name</label>
+                <input id="vendorName" ng-model="vendor.vendorName" class="form-control" placeholder="Enter Vendor Name Here" required />
+            </div>
+                </div>
+
+            </div>
+
+                <div class="form-group">
+                    <label for="vendorAddress">Vendor Address</label>
+                    <input id="vendorAddress" ng-model="vendor.vendorAddress" class="form-control" placeholder="Enter Vendor Address Here" required />
+                </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="vendorContactPerson">Vendor Contact Person</label>
+                        <input id="vendorContactPerson" ng-model="vendor.vendorContactPerson" class="form-control" placeholder="Enter Vendor Contact Person Here" required />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="vendorContactNumber">Vendor Contact Number</label>
+                        <input id="vendorContactNumber" ng-model="vendor.vendorContactNumber" class="form-control" placeholder="Enter Vendor Contact Number Here" required />
+                    </div>
+                </div>
+            </div>
+                
+
+               
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="vendorContactEmail">Vendor Contact Email</label>
+                    <input id="vendorContactEmail" ng-model="vendor.vendorContactEmail" class="form-control" placeholder="Enter Vendor Contact Email Here" required />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="vendorWebsite">Vendor Website</label>
+                    <input id="vendorWebsite" ng-model="vendor.vendorWebsite" class="form-control" placeholder="Enter Vendor Website Here" required />
+                </div>
+            </div>
+        </div>
+                
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="vendorFax">Vendor Fax</label>
+                    <input id="vendorFax" ng-model="vendor.vendorFax" class="form-control" placeholder="Enter Vendor Fax Here" required />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="vendorBankDetails">Vendor Bank Details</label>
+                    <input id="vendorBankDetails" ng-model="vendor.vendorBankDetails" class="form-control" placeholder="Enter Vendor Bank Details Here" required />
+                </div>
+            </div>
+            </div>
+               
+
+               
+
+                
+            </div>
+    </div>
+    <div class="modal-footer">
+        <p class="help-block" ng-show="newVendorForm.code.$error.unique">VendorCode is already taken.</p>
+        <button ng-click="saveVendor()" ng-disabled="newVendorForm.$invalid" type="submit" class="btn btn-primary">Save</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</form>

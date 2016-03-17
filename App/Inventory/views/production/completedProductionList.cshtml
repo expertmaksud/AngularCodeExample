@@ -1,0 +1,12 @@
+﻿<div ng-controller="completedProductionListController as vm">
+    <div class="row">
+        <legend>Finish Product Production Completed List to Receive</legend>
+    </div>
+    <div class="row">
+        <button ng-click="vm.editSelectedRow()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Add To Stock</button>
+        @*<button ng-click="vm.displayFinishProductDetails()" class="btn btn-primary" ng-disabled="vm.disableEdit" style="margin:10px 0 10px 0">Display Detail</button>*@
+    </div>
+    <div class="row">
+        <div id="completedProductionListGrid" ui-grid="vm.gridOptions" ui-grid-selection class="uigridfull"></div>
+    </div>
+</div>
